@@ -1,6 +1,6 @@
 import db from '../database.ts';
 import { UserSchema, User } from '../models/users.ts';
-import { validateUser } from '../validation.ts';
+import { validateUser, validateUpdateUser } from '../validation.ts';
 
 const users = db.collection<UserSchema>('users');
 
@@ -59,7 +59,7 @@ export const addUser = async ({ request, response }: { request: any, response: a
 // @desc    Update user
 // @route   PUT /api/users/:id
 export const updateUser = async ({ params, request, response }: { params: { id: string }, request: any, response: any }) => {
-    const user: User | undefined = await validateUser(request, response);
+    const user: User | undefined = await validateUpdateUser(request, response);
 
     if (user !== undefined) {
         const { matchedCount, modifiedCount, upsertedId } = await users.updateOne(

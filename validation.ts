@@ -17,6 +17,8 @@ export const validateUser = async (request: any, response: any): Promise<User | 
 
     // TODO: refactor with ['username', 'password'].forEach
 
+    // TODO: multiple errors
+
     if (!user.username) {
         response.status = 400;
         response.body = {
@@ -32,6 +34,23 @@ export const validateUser = async (request: any, response: any): Promise<User | 
         response.body = {
             success: false,
             msg: 'Password required'
+        };
+
+                 return;
+    }
+
+    return user;
+}
+
+export const validateUpdateUser = async (request: any, response: any): Promise<User | undefined> => {
+    const body = await request.body();
+    const user: User = await body.value;
+
+    if (!user) {
+        response.status = 400;
+        response.body = {
+            success: false,
+            msg: 'No data'
         };
 
         return;
