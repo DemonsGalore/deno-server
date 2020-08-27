@@ -1,3 +1,5 @@
+import { ObjectId } from 'https://deno.land/x/mongo@v0.11.0/mod.ts';
+
 import db from '../database.ts';
 import { UserSchema, User } from '../models/users.ts';
 import { validateUser, validateUpdateUser } from '../validation.ts';
@@ -18,17 +20,14 @@ export const getUsers = async ({ response }: { response: any }) => {
 // @desc    Get single user
 // @route   GET /api/users/:id
 export const getUser = async ({ params, response }: { params: { id: string }, response: any }) => {
-    const user: UserSchema | null = await users.findOne({ _id: { $oid: params.id } });
+    try {
+        const user: UserSchema | null = await users.findOne({ _id: ObjectId(params.id) });
 
-    // FIXME: error for invalid id
-
-    if (user) {
-        response.status = 200;
         response.body = {
             success: true,
             data: user
         }
-    } else {
+    } catch (error) {
         response.status = 404;
         response.body = {
             success: false,
@@ -62,37 +61,37 @@ export const updateUser = async ({ params, request, response }: { params: { id: 
     const user: User | undefined = await validateUpdateUser(request, response);
 
     if (user !== undefined) {
-        const { matchedCount, modifiedCount, upsertedId } = await users.updateOne(
-            { _id: { $oid: params.id } },
-            { $set: { username: user.username, password: user.password } }
-        );
+        try {
+            await users.updateOne(
+                { _id: ObjectId(params.id) },
+                { $set: { username: user.username, password: user.password } }
+            );
 
-        console.log(matchedCount);
-        console.log(modifiedCount);
-        console.log(upsertedId);
-
-        // TODO: add response for failed request
-
-        response.body = {
-            success: true,
-            msg: 'User updated'
-        };
+            response.body = {
+                success: true,
+                msg: 'User updated'
+            };
+        } catch (error) {
+            response.status = 404;
+            response.body = {
+                success: false,
+                msg: 'No user found'
+            }
+        }
     }
 };
 
 // @desc    Delete user
 // @route   DELETE /api/users/:id
 export const deleteUser = async ({ params, response }: { params: { id: string }, response: any }) => {
-    const deleteCount = await users.deleteOne({ _id: { $oid: params.id } });
+    try {
+        await users.deleteOne({ _id: ObjectId(params.id) });
 
-    // FIXME: error for invalid id
-
-    if (deleteCount === 1) {
         response.body = {
             success: true,
             msg: 'User deleted'
         };
-    } else {
+    } catch (error) {
         response.status = 404;
         response.body = {
             success: false,

@@ -1,4 +1,4 @@
-import { MongoClient } from 'https://deno.land/x/mongo@v0.9.2/mod.ts';
+import { MongoClient } from 'https://deno.land/x/mongo@v0.11.0/mod.ts';
 import { config } from 'https://deno.land/x/dotenv@v0.5.0/mod.ts';
 
 const env = config();
@@ -7,6 +7,6 @@ const env = config();
 const client = new MongoClient();
 client.connectWithUri(env.MONGODB_URI);
 
-const db = client.database("deno");
+const db = client.database('deno');
 
 export default db;
