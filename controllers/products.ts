@@ -50,7 +50,6 @@ export const getProduct = ({ params, response }: { params: { id: string }, respo
     const product: Product | undefined = products.find(p => p.id === params.id);
 
     if (product) {
-        response.status = 200;
         response.body = {
             success: true,
             data: product
@@ -100,7 +99,6 @@ export const updateProduct = async ({ params, request, response }: { params: { i
 
         products = products.map(p => p.id === params.id ? { ...p, ...updateData } : p);
 
-        response.status = 200;
         response.body = {
             success: true,
             data: products
