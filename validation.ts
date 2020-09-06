@@ -1,6 +1,8 @@
+import { Request, Response } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+
 import { User } from './models/users.ts';
 
-export const validateUser = async (request: any, response: any): Promise<User | undefined> => {
+export const validateUser = async (request: Request, response: Response): Promise<User | undefined> => {
     const body = await request.body();
     const user: User = await body.value;
 
@@ -41,7 +43,7 @@ export const validateUser = async (request: any, response: any): Promise<User | 
     return user;
 }
 
-export const validateUpdateUser = async (request: any, response: any): Promise<User | undefined> => {
+export const validateUpdateUser = async (request: Request, response: Response): Promise<User | undefined> => {
     const body = await request.body();
     const user: User = await body.value;
 
@@ -58,7 +60,7 @@ export const validateUpdateUser = async (request: any, response: any): Promise<U
     return user;
 }
 
-export const validateSignInUser = async (request: any, response: any): Promise<User | undefined> => {
+export const validateSignInUser = async (request: Request, response: Response): Promise<User | undefined> => {
     const body = await request.body();
     const user: User = await body.value;
 

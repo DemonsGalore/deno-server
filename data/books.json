@@ -1,0 +1,44 @@
+[
+    {
+        "id": "1",
+        "title": "1984",
+        "author": "George Orwell",
+        "year": "1949"
+    },
+    {
+        "id": "2",
+        "title": "The Martian",
+        "author": "Andy Weir",
+        "year": "2011"
+    },
+    {
+        "id": "3",
+        "title": "Ready Player One",
+        "author": "Ernest Cline",
+        "year": "2011"
+    },
+    {
+        "id": "4",
+        "title": "Annihilation",
+        "author": "Jeff VanderMeer",
+        "year": "2014"
+    },
+    {
+        "id": "5",
+        "title": "A Game Of Thrones",
+        "author": "George R.R. Martin",
+        "year": "1996"
+    },
+    {
+        "id": "6",
+        "title": "The Last Wish",
+        "author": "Andrzej Sapkowski",
+        "year": "1993"
+    },
+    {
+        "id": "7",
+        "title": "Stories of Your Life and Others ",
+        "author": "Ted Chiang",
+        "year": "2002"
+    }
+]
