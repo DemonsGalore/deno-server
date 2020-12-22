@@ -1,9 +1,9 @@
-import { parseAndDecode, validateJwtObject, JwtObject } from 'https://deno.land/x/djwt@v1.2/validate.ts';
-import * as bcrypt from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts';
-import { Context } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import { parseAndDecode, validateJwtObject, JwtObject } from '../deps/djwt.ts';
+import { bcrypt } from '../deps/bcrypt.ts';
+import type { Context } from '../deps/oak.ts';
 
 import db from '../database.ts';
-import { User, UserSchema } from '../models/users.ts';
+import type { User, UserSchema } from '../models/users.ts';
 import { validateSignInUser } from '../validation.ts';
 import { generateToken } from '../util/token.ts';
 

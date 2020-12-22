@@ -1,9 +1,8 @@
-import { JwtValidation, validateJwt } from 'https://deno.land/x/djwt@v1.2/validate.ts';
-import { makeJwt, setExpiration, Jose, Payload } from 'https://deno.land/x/djwt@v1.2/create.ts';
-import { config } from 'https://deno.land/x/dotenv@v0.5.0/mod.ts';
-import { Request, Response } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import type { Request, Response } from '../deps/oak.ts';
+import { JwtValidation, makeJwt, setExpiration, validateJwt, Jose, Payload } from '../deps/djwt.ts';
+import { config } from '../deps/dotenv.ts';
 
-import { UserSchema } from '../models/users.ts';
+import type { UserSchema } from '../models/users.ts';
 
 const env = config();
 const key = env.JWT_SECRET;

@@ -1,9 +1,9 @@
-import { ObjectId } from 'https://deno.land/x/mongo@v0.11.0/mod.ts';
-import * as bcrypt from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts';
-import { Context, Request, Response, RouteParams } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import { ObjectId } from '../deps/mongo.ts';
+import type { Context, Request, Response, RouteParams } from '../deps/oak.ts';
+import { bcrypt } from '../deps/bcrypt.ts';
 
 import db from '../database.ts';
-import { UserSchema, User } from '../models/users.ts';
+import type { UserSchema, User } from '../models/users.ts';
 import { validateUser, validateUpdateUser } from '../validation.ts';
 
 const users = db.collection<UserSchema>('users');

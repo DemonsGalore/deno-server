@@ -1,7 +1,6 @@
-import { Router } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
-import { applyGraphQL, gql } from 'https://deno.land/x/oak_graphql@0.6.1/mod.ts';
-import { readJsonSync } from 'https://deno.land/std@0.68.0/fs/mod.ts';
-import { v4 } from 'https://deno.land/std@0.65.0/uuid/mod.ts';
+import { Router } from './deps/oak.ts';
+import { applyGraphQL, gql } from './deps/oak_graphql.ts';
+import { readJsonSync, v4 } from './deps/std.ts';
 
 import { Book } from './models/books.ts';
 

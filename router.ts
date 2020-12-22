@@ -1,4 +1,4 @@
-import { Router } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import { Router } from './deps/oak.ts';
 
 import { getUser, getUsers, addUser, updateUser, deleteUser } from './controllers/users.ts';
 import { addBook, deleteBook, getBook, getBooks, updateBook } from './controllers/books.ts';

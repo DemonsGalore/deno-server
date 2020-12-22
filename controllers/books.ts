@@ -1,9 +1,9 @@
-import { v4 } from 'https://deno.land/std@0.65.0/uuid/mod.ts';
-import { readJsonSync } from 'https://deno.land/std@0.68.0/fs/mod.ts';
-import { Context, Request, Response, RouteParams } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import { readJsonSync, v4 } from '../deps/std.ts';
+import type { Context, Request, Response, RouteParams } from '../deps/oak.ts';
 
-import { Book } from '../models/books.ts';
+import type { Book } from '../models/books.ts';
 
+// TODO: readJsonSync removed (in std 0.69.0)
 let books: Book[] = readJsonSync('./data/books.json') as Book[];
 
 // @desc    Get all books

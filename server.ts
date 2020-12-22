@@ -1,9 +1,10 @@
-import { Application, isHttpError } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
-import { config } from 'https://deno.land/x/dotenv@v0.5.0/mod.ts';
+import { Application, isHttpError } from './deps/oak.ts';
+import { config } from './deps/dotenv.ts';
 
-import router from './router.ts';
+import router from './router.tsx';
 import notFound from './404.ts';
-import GraphQLService from "./graphql.ts";
+import GraphQLService from './graphql.ts';
+// import { page } from './pages/index.jsx';
 
 const env = config();
 const HOST = env.APP_HOST || 'http://localhost';
@@ -11,8 +12,11 @@ const PORT = +env.APP_PORT || 5000;
 
 const app = new Application();
 
-// GraphQL
-app.use(GraphQLService.routes(), GraphQLService.allowedMethods());
+// Request type and route
+app.use(async (ctx, next) => {
+    console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
+    await next();
+});
 
 // FIXME: is it even working?
 app.use(async (ctx, next) => {
@@ -31,7 +35,7 @@ app.use(async (ctx, next) => {
                 default:
                     ctx.response.status = 400;
                     ctx.response.body = {
-                        error: 'Request can not be processed currently'
+                        error: 'Request can currently not be processed'
                     };
 
                     break;
@@ -46,11 +50,27 @@ app.use(async (ctx, next) => {
 });
 
 // REST
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(router.routes(), router.allowedMethods());
+
+// GraphQL
+app.use(GraphQLService.routes(), GraphQLService.allowedMethods());
+
+// Send static content
+app.use(async (context) => {
+    await context.send({
+        root: `${Deno.cwd()}/ui/react-ui/build`,
+        index: 'index.html',
+    });
+});
+
 // TODO: remove if error handling is working
 app.use(notFound);
 
 console.log(`Server is running on ${HOST}:${PORT}`);
 
 await app.listen({ port: PORT });
+
+
+// TODO: CORS
+// import { oakCors } from "https://deno.land/x/cors/mod.ts";
+// app.use(oakCors());

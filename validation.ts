@@ -1,6 +1,6 @@
-import { Request, Response } from 'https://deno.land/x/oak@v6.1.0/mod.ts';
+import type { Request, Response } from './deps/oak.ts';
 
-import { User } from './models/users.ts';
+import type { User } from './models/users.ts';
 
 export const validateUser = async (request: Request, response: Response): Promise<User | undefined> => {
     const body = await request.body();

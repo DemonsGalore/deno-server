@@ -1,5 +1,5 @@
-import { MongoClient } from 'https://deno.land/x/mongo@v0.11.0/mod.ts';
-import { config } from 'https://deno.land/x/dotenv@v0.5.0/mod.ts';
+import { MongoClient } from './deps/mongo.ts';
+import { config } from './deps/dotenv.ts';
 
 const env = config();
 
